@@ -1,8 +1,24 @@
+
+import argparse
 import threading
 import socket
-host='127.0.0.1'
+import time
 
-values=[i for i in range(1,1000)]
+start_time = time.time()
+parser= argparse.ArgumentParser(description="Port checker")
+parser.add_argument('-u','--url',help="Url Or host",default='127.0.0.1')
+parser.add_argument('-p','--ports',help="how many ports to scan default(1000)",default=1000,type=int)
+parser.add_argument('-t','--threads',help="Total threads to use default(30)",type=int,default=30)
+parser.add_argument('-b','--timeout',help="timeout to inspect a port", default=5,type=int)
+args=parser.parse_args()
+
+
+
+#host='127.0.0.1'
+
+
+
+values=[i for i in range(1,args.ports)]
 values=values[::-1]
 lock=threading.Lock()
 print('---'*10)
@@ -16,10 +32,10 @@ def formater(x):
 
 def target_fuction(i):
     s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    s.settimeout(9)
+    s.settimeout(args.timeout)
     try:
 
-        s.connect((host,i))
+        s.connect((args.url,i))
         #print('\x1b[#F')
         print(f'[+]     \x1b[38;5;46m     connected {i} \x1b[0m',end='\n')
         #print('\x1b[#F')
@@ -34,7 +50,7 @@ def target_fuction(i):
     except OSError as errors:
         global flag 
         if flag==0:
-            print(f'[-]     \x1b[38;5;226m     Not connected to internet  Or Not reachable\x1b[0m',end      ='\n')
+            print(f'[-]  \x1b[5m  \x1b[38;5;154m     Not connected to internet  Or Not reachable\x1b[0m',end      ='\n')
             flag=1
         exit()
 
@@ -53,12 +69,13 @@ def printer():
         target_fuction(x)
 def main():
     global lock
-    threads = [threading.Thread(target=printer) for x in range(30)]
-    for t in threads: 
+    threads_ = [threading.Thread(target=printer) for x in range(args.threads)]
+    for t in threads_: 
         t.start()
-    for t in threads:
+    for t in threads_:
         t.join()
 main()
+print(f"--- {int(time.time() - start_time)} seconds ---------" )
 print('---'*10)
 exit()
 
