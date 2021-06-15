@@ -1,3 +1,11 @@
+#ports
+#threads
+#url
+#timeout
+#color for not connected
+#check for Request per second
+
+
 import threading
 import socket
 host='127.0.0.1'
