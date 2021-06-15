@@ -2,7 +2,7 @@ import threading
 import socket
 host='127.0.0.1'
 
-values=[i for i in range(1,65000)]
+values=[i for i in range(1,1000)]
 values=values[::-1]
 lock=threading.Lock()
 print('---'*10)
@@ -32,10 +32,9 @@ def target_fuction(i):
         return
         #print(f'[-]     \x1b[38;5;196m     Not Connected {i} \x1b[0m',end      ='\n')
     except OSError as errors:
-        print(f'[-]     \x1b[38;5;226m     Not connected to internet {i} \x1b[0m',end      ='\n')
         global flag 
         if flag==0:
-            print(errors)
+            print(f'[-]     \x1b[38;5;226m     Not connected to internet  Or Not reachable\x1b[0m',end      ='\n')
             flag=1
         exit()
 
