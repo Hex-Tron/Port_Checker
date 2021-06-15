@@ -3,7 +3,7 @@ import socket
 import sys
 host='127.0.0.1'
 
-values=[i for i in range(1,60000)]
+values=[i for i in range(1,65535)]
 values=values[::-1]
 lock=threading.Lock()
 print('---'*10)
