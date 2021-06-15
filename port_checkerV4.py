@@ -1,5 +1,4 @@
 #time
-#color for not connected
 #check for Request per second
 
 import argparse
@@ -52,7 +51,7 @@ def target_fuction(i):
     except OSError as errors:
         global flag 
         if flag==0:
-            print(f'[-]     \x1b[38;5;226m     Not connected to internet  Or Not reachable\x1b[0m',end      ='\n')
+            print(f'[-]  \x1b[5m  \x1b[38;5;154m     Not connected to internet  Or Not reachable\x1b[0m',end      ='\n')
             flag=1
         exit()
 
