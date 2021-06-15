@@ -1,11 +1,10 @@
-#time
-#check for Request per second
 
 import argparse
 import threading
 import socket
+import time
 
-
+start_time = time.time()
 parser= argparse.ArgumentParser(description="Port checker")
 parser.add_argument('-u','--url',help="Url Or host",default='127.0.0.1')
 parser.add_argument('-p','--ports',help="how many ports to scan default(1000)",default=1000,type=int)
@@ -76,6 +75,7 @@ def main():
     for t in threads_:
         t.join()
 main()
+print(f"--- {int(time.time() - start_time)} seconds ---------" )
 print('---'*10)
 exit()
 
