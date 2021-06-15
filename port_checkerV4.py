@@ -1,9 +1,8 @@
 import threading
 import socket
-import sys
-host='127.0.0.1'
+host='www.eufores.org'
 
-values=[i for i in range(1,65535)]
+values=[i for i in range(1,5000)]
 values=values[::-1]
 lock=threading.Lock()
 print('---'*10)
@@ -17,22 +16,29 @@ def formater(x):
 
 def target_fuction(i):
     s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    s.settimeout(9)
     try:
 
         s.connect((host,i))
         #print('\x1b[#F')
-        print(f'[+]     \x1b[38;5;208m     connected {i} \x1b[0m',end='\n')
+        print(f'[+]     \x1b[38;5;46m     connected {i} \x1b[0m',end='\n')
         #print('\x1b[#F')
     except ConnectionRefusedError:
-        pass
+        return
         #print('Closed port')
-    except Exception as errors:
-
+    except socket.timeout:
+        print(f'[+]     \x1b[38;5;208m     Filtered connected {i} \x1b[0m',end='\n')
+    except socket.gaierror:
+        return
+        #print(f'[-]     \x1b[38;5;196m     Not Connected {i} \x1b[0m',end      ='\n')
+    except OSError as errors:
+        print(f'[-]     \x1b[38;5;226m     Not connected to internet {i} \x1b[0m',end      ='\n')
         global flag 
         if flag==0:
             print(errors)
             flag=1
         exit()
+
 
 
 
@@ -55,3 +61,5 @@ def main():
         t.join()
 main()
 print('---'*10)
+exit()
+
