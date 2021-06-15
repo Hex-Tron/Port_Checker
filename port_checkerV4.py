@@ -1,6 +1,6 @@
 import threading
 import socket
-host='www.eufores.org'
+host='127.0.0.1'
 
 values=[i for i in range(1,5000)]
 values=values[::-1]
