@@ -10,7 +10,7 @@ parser= argparse.ArgumentParser(description="Port checker")
 parser.add_argument('-u','--url',help="Url Or host",default='127.0.0.1')
 parser.add_argument('-p','--ports',help="how many ports to scan default(1000)",default=1000,type=int)
 parser.add_argument('-t','--threads',help="Total threads to use default(30)",type=int,default=30)
-parser.add_argument('-b','--timeout',help="timeout to inspect a port", default=3,type=int)
+parser.add_argument('-b','--timeout',help="timeout to inspect a port", default=5,type=int)
 args=parser.parse_args()
 
 
