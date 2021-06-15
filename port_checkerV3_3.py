@@ -9,6 +9,8 @@ lock=threading.Lock()
 print('---'*10)
 print(' '*10)
 
+flag=0
+
 def formater(x):
     print(f'\x1b[s Checking number({x})  \x1b[u',end='')
 
@@ -24,6 +26,13 @@ def target_fuction(i):
     except ConnectionRefusedError:
         pass
         #print('Closed port')
+    except Exception as errors:
+
+        global flag 
+        if flag==0:
+            print(errors)
+            flag=1
+        exit()
 
 
 
@@ -45,3 +54,4 @@ def main():
     for t in threads:
         t.join()
 main()
+print('---'*10)
